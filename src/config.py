@@ -1,7 +1,7 @@
 import tweepy
 import logging
 import os
-# from os.path import join, dirname
+from os.path import join, dirname
 # from dotenv import load_dotenv
 
 # dotenv_path = join(dirname(__file__), '../.env')
@@ -10,10 +10,10 @@ import os
 logger = logging.getLogger()
 
 def create_api():
-    CONSUMER_KEY = os.environ.get["CONSUMER_KEY"]
-    CONSUMER_SECRET = os.environ.get["CONSUMER_SECRET"]
-    ACCESS_TOKEN = os.environ.get["ACCESS_TOKEN"]
-    ACCESS_TOKEN_SECRET = os.environ.get["ACCESS_TOKEN_SECRET"]
+    CONSUMER_KEY = os.environ.get("CONSUMER_KEY")
+    CONSUMER_SECRET = os.environ.get("CONSUMER_SECRET")
+    ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")
+    ACCESS_TOKEN_SECRET = os.environ.get("ACCESS_TOKEN_SECRET")
 
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)

@@ -3,10 +3,11 @@ from PIL import Image
 import pytesseract
 from googletrans import Translator
 import requests
-
+import os
+from os.path import join, dirname
 # Set tesseract path
 # pytesseract.pytesseract.tesseract_cmd = r'D:\Program Files\Tesseract-OCR\tesseract.exe'
-pytesseract.pytesseract.tesseract_cmd = os.environ.get["TESSDATA_PREFIX"]
+pytesseract.pytesseract.tesseract_cmd = os.environ.get("TESSDATA_PREFIX")
 
 # Iniciate translator
 p = Translator()
