@@ -1,9 +1,9 @@
 import tweepy
 import logging
 import time
-from config import create_api
-from config import langs
-from translate import translate
+from src.config import create_api
+from src.config import langs
+from src.translate import translate
 import json
 from types import SimpleNamespace
 from datetime import datetime
@@ -35,16 +35,18 @@ def check_mentions(api, since_id):
             if('media' in tweet.entities):
                 for med in tweet.entities['media']:
                     message = translate(med['media_url'], selLang)
-                    message = message[0:280]
-                    
-                    if tweet.in_reply_to_status_id is not None:
-                        continue
-                    logger.info("Answering to "+tweet.user.name)
-
-                    api.update_status(
-                        status=message,
-                        in_reply_to_status_id=tweet.id,
-                    )
+                    message = [message[i:i+280] for i in range(0, len(message), 280)]
+                    threadParentId = tweet.id
+                    for msg in message:
+                        if tweet.in_reply_to_status_id is not None:
+                            continue
+                        logger.info("Answering to "+tweet.user.name)
+                        
+                        threadParentId = api.update_status(
+                            status=msg,
+                            in_reply_to_status_id=threadParentId,
+                        ).id
+                        print(threadParentId)
             else:
                 logger.info("Answering noMedia")
 
