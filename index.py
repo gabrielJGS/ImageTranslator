@@ -18,8 +18,6 @@ def check_mentions(api, since_id):
     logger.info("Retrieving mentions")
     new_since_id = since_id
     for tweet in tweepy.Cursor(api.mentions_timeline,tweet_mode='extended', since_id=since_id).items():
-        print(tweet)
-
         tweetText = tweet.full_text.lower()
         selectLang = 0
         selLang = ""
@@ -34,8 +32,6 @@ def check_mentions(api, since_id):
                 message = [message[i:i+280] for i in range(0, len(message), 280)]
                 threadParentId = tweet.id
                 for msg in message:
-                    # if tweet.in_reply_to_status_id is not None:
-                    #     continue
                     logger.info("Answering to "+tweet.user.name)
                     
                     threadParentId = api.update_status(
