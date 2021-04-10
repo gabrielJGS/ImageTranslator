@@ -2,4 +2,6 @@ django
 gunicorn
 django-heroku
 tweepy
-pillow pytesseract googletrans==3.1.0a0
+pillow
+pytesseract
+googletrans==3.1.0a0
