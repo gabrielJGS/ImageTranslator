@@ -6,8 +6,8 @@ import requests
 import os
 from os.path import join, dirname
 # Set tesseract path
-pytesseract.pytesseract.tesseract_cmd = r'D:\Program Files\Tesseract-OCR\tesseract.exe'
-# pytesseract.pytesseract.tesseract_cmd = r'/usr/bin/tesseract'
+# pytesseract.pytesseract.tesseract_cmd = r'D:\Program Files\Tesseract-OCR\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = r'/usr/bin/tesseract'
 
 # Iniciate translator
 p = Translator()
@@ -21,5 +21,5 @@ def translate(img, lang):
     if(lang!=''):
         p_translated = p.translate(result, dest=lang)
         translated = str(p_translated.text)
-    # Print
+    
     return(translated)

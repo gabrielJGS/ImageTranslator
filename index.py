@@ -19,7 +19,6 @@ def check_mentions(api, since_id):
     new_since_id = since_id
     for tweet in tweepy.Cursor(api.mentions_timeline,since_id=since_id).items():
         tweetText = tweet.text.lower()
-        print(tweetText)
         selectLang = 0
         selLang = ""
         for lan in langtypes:
@@ -41,7 +40,6 @@ def check_mentions(api, since_id):
                         status=msg,
                         in_reply_to_status_id=threadParentId,
                     ).id
-                    print(threadParentId)
         else:
             logger.info("Answering noMedia")
 
@@ -53,7 +51,6 @@ def check_mentions(api, since_id):
         new_since_id = max(tweet.id, new_since_id)
         print(new_since_id)
     return new_since_id
-
 
 def main():
     # Abre arquivo
