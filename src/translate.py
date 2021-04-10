@@ -7,7 +7,7 @@ import os
 from os.path import join, dirname
 # Set tesseract path
 # pytesseract.pytesseract.tesseract_cmd = r'D:\Program Files\Tesseract-OCR\tesseract.exe'
-pytesseract.pytesseract.tesseract_cmd = os.environ.get("TESSDATA_PREFIX")
+pytesseract.pytesseract.tesseract_cmd = r'/usr/share/tesseract-ocr/4.00/tessdata'
 
 # Iniciate translator
 p = Translator()
