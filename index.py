@@ -27,22 +27,14 @@ def check_mentions(api, since_id):
             if(selectLang > 0):
                 selLang = tweetText[selectLang+1:selectLang+1+len(lan)]
                 break
-        # if(selectLang < 0):
-        #     logger.info("Invalid tweet lang")
-        #     api.update_status(
-        #         status="Você selecionou uma linguagem inválida, leia o fixado e tente novamente\n" +
-        #         str(datetime.now()),
-        #         in_reply_to_status_id=tweet.id,
-        #     )
-        # else:
         if('media' in tweet.entities):
             for med in tweet.entities['media']:
                 message = translate(med['media_url'], selLang)
                 message = [message[i:i+280] for i in range(0, len(message), 280)]
                 threadParentId = tweet.id
                 for msg in message:
-                    if tweet.in_reply_to_status_id is not None:
-                        continue
+                    # if tweet.in_reply_to_status_id is not None:
+                    #     continue
                     logger.info("Answering to "+tweet.user.name)
                     
                     threadParentId = api.update_status(
@@ -76,7 +68,6 @@ def main():
         idfile.truncate()
         logger.info("Waiting...")
         time.sleep(60)
-
 
 if __name__ == "__main__":
     main()
