@@ -17,8 +17,10 @@ langtypes = langs()
 def check_mentions(api, since_id):
     logger.info("Retrieving mentions")
     new_since_id = since_id
-    for tweet in tweepy.Cursor(api.mentions_timeline,since_id=since_id).items():
-        tweetText = tweet.text.lower()
+    for tweet in tweepy.Cursor(api.mentions_timeline,tweet_mode='extended', since_id=since_id).items():
+        print(tweet)
+
+        tweetText = tweet.full_text.lower()
         selectLang = 0
         selLang = ""
         for lan in langtypes:
