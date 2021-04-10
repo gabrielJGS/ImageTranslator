@@ -20,34 +20,35 @@ def check_mentions(api, since_id):
     for tweet in tweepy.Cursor(api.mentions_timeline,since_id=since_id).items():
         tweetText = tweet.text.lower()
         selectLang = 0
+        selLang = ""
         for lan in langtypes:
             selectLang = tweetText.find("-"+lan)
             if(selectLang > 0):
                 selLang = tweetText[selectLang+1:selectLang+1+len(lan)]
                 break
-        if(selectLang < 0):
-            logger.info("Invalid tweet lang")
-            api.update_status(
-                status="Você selecionou uma linguagem inválida, leia o fixado e tente novamente\n" +
-                str(datetime.now()),
-                in_reply_to_status_id=tweet.id,
-            )
-        else:
-            if('media' in tweet.entities):
-                for med in tweet.entities['media']:
-                    message = translate(med['media_url'], selLang)
-                    message = [message[i:i+280] for i in range(0, len(message), 280)]
-                    threadParentId = tweet.id
-                    for msg in message:
-                        if tweet.in_reply_to_status_id is not None:
-                            continue
-                        logger.info("Answering to "+tweet.user.name)
-                        
-                        threadParentId = api.update_status(
-                            status=msg,
-                            in_reply_to_status_id=threadParentId,
-                        ).id
-                        print(threadParentId)
+        # if(selectLang < 0):
+        #     logger.info("Invalid tweet lang")
+        #     api.update_status(
+        #         status="Você selecionou uma linguagem inválida, leia o fixado e tente novamente\n" +
+        #         str(datetime.now()),
+        #         in_reply_to_status_id=tweet.id,
+        #     )
+        # else:
+        if('media' in tweet.entities):
+            for med in tweet.entities['media']:
+                message = translate(med['media_url'], selLang)
+                message = [message[i:i+280] for i in range(0, len(message), 280)]
+                threadParentId = tweet.id
+                for msg in message:
+                    if tweet.in_reply_to_status_id is not None:
+                        continue
+                    logger.info("Answering to "+tweet.user.name)
+                    
+                    threadParentId = api.update_status(
+                        status=msg,
+                        in_reply_to_status_id=threadParentId,
+                    ).id
+                    print(threadParentId)
             else:
                 logger.info("Answering noMedia")
 
