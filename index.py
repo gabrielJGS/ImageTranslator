@@ -60,7 +60,7 @@ def check_mentions(api, since_id):
     return new_since_id
 
 
-def main():
+def app():
     # Abre arquivo
     idfile = open('lastid.txt', 'r+')
     since_id = int(idfile.read())
@@ -75,5 +75,5 @@ def main():
         time.sleep(60)
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == "__app__":
+    app()
