@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import tweepy
 import logging
 import time
