@@ -16,11 +16,12 @@ def translate(img, lang):
     img = Image.open(requests.get(
         img, stream=True).raw)
     result = pytesseract.image_to_string(img)
-
-    p_translated = result
+    print(lang)
+    print(result)
+    translated = result
     # Translate
     if(lang!=''):
         p_translated = p.translate(result, dest=lang)
-    translated = str(p_translated.text)
+        translated = str(p_translated.text)
     # Print
     return(translated)
