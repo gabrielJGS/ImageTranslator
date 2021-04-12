@@ -13,7 +13,6 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
 langtypes = langs()
 
-
 def check_mentions(api, since_id):
     logger.info("Retrieving mentions")
     new_since_id = since_id
@@ -29,13 +28,13 @@ def check_mentions(api, since_id):
         if('media' in tweet.entities):
             for med in tweet.entities['media']:
                 message = translate(med['media_url'], selLang)
-                message = [message[i:i+280] for i in range(0, len(message), 280)]
+                message = [message[i:i+(279-len(tweet.user.screen_name)-2)] for i in range(0, len(message)-len(tweet.user.screen_name)-2, (279-len(tweet.user.screen_name)-2))]
                 threadParentId = tweet.id
                 for msg in message:
                     logger.info("Answering to "+tweet.user.name)
                     
                     threadParentId = api.update_status(
-                        status=msg,
+                        status="@"+tweet.user.screen_name+" "+msg,
                         in_reply_to_status_id=threadParentId,
                     ).id
         else:
