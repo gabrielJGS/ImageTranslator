@@ -38,13 +38,13 @@ def check_mentions(api, since_id):
                         in_reply_to_status_id=threadParentId,
                     ).id
         else:
-            logger.info("Answering noMedia")
+            logger.info("Answering noMedia "+ tweet.user.screen_name)
 
-            api.update_status(
-                status="Você não anexou nenhum arquivo!\n" +
-                str(datetime.now()),
-                in_reply_to_status_id=tweet.id,
-            )
+            # api.update_status(
+            #     status="Você não anexou nenhum arquivo!\n" +
+            #     str(datetime.now()),
+            #     in_reply_to_status_id=tweet.id,
+            # )
         new_since_id = max(tweet.id, new_since_id)
         print(new_since_id)
     return new_since_id
