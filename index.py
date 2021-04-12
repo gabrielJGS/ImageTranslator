@@ -17,6 +17,8 @@ def check_mentions(api, since_id):
     logger.info("Retrieving mentions")
     new_since_id = since_id
     for tweet in tweepy.Cursor(api.mentions_timeline,tweet_mode='extended', since_id=since_id).items():
+        if(tweet.retweeted): 
+            continue
         tweetText = tweet.full_text.lower()
         selectLang = 0
         selLang = ""
